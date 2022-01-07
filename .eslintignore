@@ -1,0 +1,6 @@
+build/
+.github/
+.vscode/
+client/
+node_modules/
+.env
