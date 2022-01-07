@@ -6,6 +6,7 @@ require('express-async-errors');
 import cors from 'cors';
 const helmet = require('helmet');
 import compression from 'compression';
+const postRouter = require('./controllers/postController');
 
 const app = express();
 
@@ -19,6 +20,7 @@ if (process.env.NODE_ENV === 'production') {
 	mongoose.connect(process.env.MONGO_URI ?? '')
 		.then(() => console.log('Connected to database'))
 		.catch(err => console.error(err));
+	app.use('/api/posts', postRouter);
 }
 
 app.use(express.static(path.join(__dirname, '/client/build')));
