@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 interface Post {
 	date: Date,
-	votes: [Record<string, unknown>]
+	votes: string[]
 }
 
 // Post schema used to track votes per post
 // using post date as unique key
 const PostSchema = new Schema<Post>({
 	date: { type: Date, required: true, unique: true },
-	votes: [{ fingerPrintId: { type: String } }]
+	votes: []
 });
 
 PostSchema.set('toJSON', {

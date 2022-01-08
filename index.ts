@@ -20,10 +20,16 @@ if (process.env.NODE_ENV === 'production') {
 	mongoose.connect(process.env.MONGO_URI ?? '')
 		.then(() => console.log('Connected to database'))
 		.catch(err => console.error(err));
-	app.use('/api/posts', postRouter);
+} 
+else if (process.env.NODE_ENV === 'test') {
+	mongoose.connect(process.env.MONGO_TEST_URI ?? '')
+		.then(() => console.log('Connected to test database'))
+		.catch(err => console.error(err));
 }
 
 app.use(express.static(path.join(__dirname, '/client/build')));
+
+app.use('/api/posts', postRouter);
 
 app.get('/*', (req, res) => {
 	res.sendFile(path.join(__dirname, '/client/build'));
@@ -34,3 +40,5 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${process.env.PORT}`);
 });
+
+export default app;
