@@ -2,10 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ThemeContextProvider } from './context/ThemeContext';
+import { FingerPrintContextProvider } from './context/FingerPrintContext';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+	  <FingerPrintContextProvider>
+		<ThemeContextProvider>
+			<App />
+		</ThemeContextProvider>
+	  </FingerPrintContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
