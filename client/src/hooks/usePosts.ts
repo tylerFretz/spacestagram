@@ -1,24 +1,48 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import axios from 'axios';
+import { useFingerPrintId } from '../context/FingerPrintContext';
 
-interface Post {
-	date: string,
-	explanation: string,
-	hdurl: string,
-	media_type: string,
-	service_version: string,
-	title: string,
-	url: string,
-	copyright?: string
+const BASE_URL = '/api/posts';
+
+const getPosts = async (startDate: string, endDate: string) => {
+	const { data } = await axios.get(`${BASE_URL}/nasa/${startDate}/${endDate}`);
+	return data;
 }
 
-const BASE_URL = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}&`;
-
-const getPostByDate = (date: string) =>	{
-	return axios.get(`${BASE_URL}date=${date}`);
+const getPostVote = async (date: string) => {
+	return await axios.get(`${BASE_URL}/votes/${date}`);
 }
 
-const getPostsByDateRange = (startDate: string, endDate: string) => {
-	return axios.get(`${BASE_URL}start_date=${startDate}&end_date=${endDate}`);
+const vote = (date: string, id: string) => {
+	return axios.post(`${BASE_URL}/vote/${date}`, null, {
+		headers: { 'Authorization': id }
+	});
+}
+
+export const usePostsByDateRange = (startDate: string, endDate: string) => (
+	useQuery(
+		['posts', 'list'], 
+		() => getPosts(startDate, endDate)
+	)
+);
+
+export const useGetPostVote = (date: string) => (
+	useQuery(
+		['posts', 'votes', date],
+		() => getPostVote(date)
+	)
+);
+
+export const useVote = (date: string) => {
+	const queryclient = useQueryClient();
+	const { fingerPrintId } = useFingerPrintId();
+
+	return useMutation(
+		(newVoteCount) => vote(date, fingerPrintId), {
+			onSuccess: (newVote) => {
+				queryclient.setQueryData(['posts', 'votes', date], newVote);
+			}
+		}
+	);
 }
 

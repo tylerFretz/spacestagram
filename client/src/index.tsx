@@ -2,16 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeContextProvider } from './context/ThemeContext';
 import { FingerPrintContextProvider } from './context/FingerPrintContext';
 
+const queryClient = new QueryClient({
+	defaultOptions: {
+		queries: {
+			staleTime: 2 * 60 * 1000
+		}
+	}
+});
+
 ReactDOM.render(
   <React.StrictMode>
-	  <FingerPrintContextProvider>
-		<ThemeContextProvider>
-			<App />
-		</ThemeContextProvider>
-	  </FingerPrintContextProvider>
+	  <QueryClientProvider client={queryClient}>
+		<FingerPrintContextProvider>
+			<ThemeContextProvider>
+				<App />
+				<ReactQueryDevtools initialIsOpen={false} />
+			</ThemeContextProvider>
+		</FingerPrintContextProvider>
+	  </QueryClientProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

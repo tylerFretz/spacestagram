@@ -15,7 +15,8 @@ const FingerPrintContextProvider: React.FC = ({ children }) => {
 		
 		fpPromise
 			.then(fp => fp.get())
-			.then(result => setId(result.visitorId));
+			.then(result => setId(result.visitorId))
+			.catch(err => console.error(err));
 	}, []);
 
 	return (
