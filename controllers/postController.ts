@@ -16,15 +16,35 @@ const isDate = (date: string) => {
 	return match;
 };
 
+/**
+ * @summary - Calls the NASA APOD API to get a single posts by date.
+ * @param date - Required. String in the format 'YYYY-MM-DD'.
+ * @returns - post object
+ */
+postRouter.get('/nasa/:date', async (req: ParamReq, res: Response) => {
+	const { date } = req.params;
+
+	// check if date is correct format
+	if (!isDate(date)) {
+		return res.sendStatus(400);
+	}
+
+	const { data } = await axios.get(`${NASA_URL}date=${date}`);
+
+	if (data) {
+		return res.json(data);
+	} else {
+		return res.sendStatus(404);
+	}
+});
 
 /**
- * @summary - Calls the NASA APOD API
+ * @summary - Calls the NASA APOD API to get a list of posts by date range.
  * @param startDate - Required. String in the format 'YYYY-MM-DD'.
  * @param endDate - Required. String in the format 'YYYY-MM-DD'.
- * @param authorization - Required in header. String fingerprint hash that identifies a user.
  * @returns - Array of image post objects
  */
-postRouter.get('/nasa/:startDate/:endDate', async (req: ParamReq, res: Response) => {
+postRouter.get('/nasa/list/:startDate/:endDate', async (req: ParamReq, res: Response) => {
 	const { startDate, endDate } = req.params;
 	
 	// check if date is correct format
@@ -34,6 +54,8 @@ postRouter.get('/nasa/:startDate/:endDate', async (req: ParamReq, res: Response)
 
 	const { data } = await axios.get(`${NASA_URL}start_date=${startDate}&end_date=${endDate}`);
 	if (data) {
+		// sort returned array by date property descending
+		data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 		return res.json(data);
 	} else {
 		return res.sendStatus(404);
@@ -70,18 +92,20 @@ postRouter.post('/vote/:date', async (req: ParamReq, res: Response) => {
 		});
 
 		await newPost.save();
-		return res.json({ votes: 1 });
+		return res.json({ votes: 1, userLiked: true });
 	} else {
 		// if a user has already voted for a post
 		if (post.votes.some(id => id === authorization)) {
 			post.votes = post.votes.filter(id => id !== authorization);
+			await post.save();
+			return res.json({ votes: post.votes.length, userLiked: false });
 		}
 		// if a user has not voted for the post yet
 		else {
 			post.votes = post.votes.concat(authorization);
+			await post.save();
+			return res.json({ votes: post.votes.length, userLiked: true });
 		}
-		await post.save();
-		return res.json({ votes: post.votes.length });
 	}
 });
 
@@ -101,9 +125,15 @@ postRouter.get('/votes/:date', async (req: ParamReq, res: Response) => {
 	const post = await Post.findOne({ date: req.params.date });
 
 	if (post) {
-		return res.json({ votes: post.votes.length });
+		const { authorization } = req.headers;
+		const votes: string[] = post.votes;
+		if (authorization && votes.some((id) => id === authorization)) {
+			return res.json({ votes: post.votes.length, userLiked: true });
+		} else {
+			return res.json({ votes: post.votes.length, userLiked: false });
+		}
 	} else {
-		return res.json({ votes: 0 });
+		return res.json({ votes: 0, useLiked: false });
 	}
 });
 
