@@ -5,12 +5,12 @@
 	"engines": {
 		"node": "16.x"
 	},
-	"type": "module",
 	"main": "index.ts",
 	"scripts": {
 		"dev": "cross-env NODE_ENV=test ts-node-dev index.ts",
-		"start": "node index.ts",
-		"start:prod": "cross-env NODE_ENV=production node index.js",
+		"start": "node dist/index.js",
+		"postinstall": "tsc && mv -i -v public dist/ && rm -v -rf src",
+		"start:prod": "tsc && node dist/index.js",
 		"lint": "eslint --ext .ts --color",
 		"build": "cd client && npm install && npm run build --prod",
 		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
