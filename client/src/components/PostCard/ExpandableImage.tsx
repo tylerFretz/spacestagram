@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardMedia, ClickAwayListener } from '@mui/material';
+import { CardMedia, ClickAwayListener, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
@@ -19,16 +19,13 @@ const useStyles = makeStyles({
 		border: 'none'
 	},
 	imageModal: {
-		display: 'block',
-		marginLeft: 'auto',
-		marginRight: 'auto',
 		width: '100%',
 		maxHeight: '95vh',
 		maxWidth: '95vw'
 	},
 	overlay: {
 		display: 'flex',
-		justifyContent: 'center',
+		flexDirection: 'column',
 		alignItems: 'center',
 		position: 'fixed',
 		width: '100vw',
@@ -37,9 +34,10 @@ const useStyles = makeStyles({
 		left: 0,
 		right: 0,
 		bottom: 0,
-		backgroundColor: 'rgba(0, 0, 10, 0.6)',
+		backgroundColor: 'rgba(0, 0, 5, 0.9)',
 		zIndex: 99,
-		cursor: 'pointer'
+		cursor: 'pointer',
+		paddingTop: '1%'
 	},
 	overlayButton: {
 		position: 'absolute',
@@ -54,9 +52,10 @@ interface Props {
 	mediaType: string
 	toggleFullscreen: (event: React.MouseEvent<HTMLElement>) => void
 	isExpanded: boolean
+	description: string
 }
 
-const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded }: Props) => {
+const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, description }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -69,7 +68,7 @@ const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded }
 					component={mediaType === 'image' ? 'img' : 'iframe'}
 					alt={title}
 					src={url}
-					title={mediaType === 'image' ? `image of ${title}` : `video of ${title}`}
+					title={mediaType === 'image' ? `Image of ${title}` : `Video of ${title}`}
 					allowFullScreen
 					loading='lazy'
 				/>
@@ -80,6 +79,11 @@ const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded }
 							<img src={url} alt={title} className={classes.imageModal}></img>
 						</div>
 						</ClickAwayListener>
+						<div style={{ padding: '1% 2%' }}>
+							<Typography variant='subtitle1' style={{ textIndent: '30px', textAlign: 'justify', color: '#FFF' }}>
+								{description}
+							</Typography>
+						</div>
 					</div>
 				)}
 			</div>

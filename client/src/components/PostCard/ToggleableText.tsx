@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		backgroundColor: 'inherit',
 		cursor: 'pointer',
 		display: 'inline-block',
-		color: '#AAA',
+		color: theme.palette.mode === 'dark' ? '#AAA' : '#000',
 		padding: 0,
 		fontSize: '1.1rem',
 		'&:hover': {
@@ -46,7 +46,7 @@ const ToggleableText = ({ text }: Props) => {
 	return (
 		<>
 			<animated.div style={{ ...slideInStyles, overflow: 'hidden' }}>
-				<Typography variant='body2' component='p' ref={textRef}>
+				<Typography variant='body2' component='p' ref={textRef} style={{ textIndent: '30px', textAlign: 'justify' }}>
 					{text}
 				</Typography>
 			</animated.div>
