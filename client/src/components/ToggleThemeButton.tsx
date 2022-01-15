@@ -61,6 +61,10 @@ const ToggleThemeButton = () => {
 			strokeLinejoin='round'
 			style={{ ...svgContainerProps, cursor: 'pointer' }}
 			onClick={() => toggle()}
+			onKeyUp={() => toggle()}
+			tabIndex={1}
+			aria-label='Toggle theme'
+			role='button'
 		>
 			<mask id='mask'>
 				<rect x='0' y='0' width='100%' height='100%' fill='white' />
