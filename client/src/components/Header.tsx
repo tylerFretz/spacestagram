@@ -17,11 +17,18 @@ const useStyles = makeStyles((theme: Theme) => ({
 		height: '4rem',
 		boxShadow: '0 2px 2px rgba(0 , 0, 0, 0.1)',
 	},
-	logo: {
+	logoContainer: {
 		display: 'inline-flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		padding: '0 15px',
+		[theme.breakpoints.down('sm')]: {
+			padding: 0,
+			marginRight: '15px'
+		}
+	},
+	logo: {
+		height: '3rem'
 	}
 }));
 
@@ -31,10 +38,10 @@ const Header = () => {
 	return (
 		<div className={classes.header}>
 			<div style={{ display: 'flex' }}>
-			<div className={classes.logo}>
-				<img src='/images/logo.png' alt='spacestagram logo' style={{ height: '50px' }} />
+			<div className={classes.logoContainer}>
+				<img className={classes.logo} src='/images/logo.png' alt='spacestagram logo' />
 			</div>
-			<h1 style={{ marginLeft: '10%'}}>Spacestagram</h1>
+			<h1 style={{ margin: 0 }}>Spacestagram</h1>
 			</div>
 			<ToggleThemeButton />
 		</div>
