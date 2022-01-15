@@ -6,7 +6,8 @@ import ToggleThemeButton from './ToggleThemeButton';
 
 const useStyles = makeStyles((theme: Theme) => ({
 	header: {
-		position: 'relative',
+		position: 'sticky',
+		zIndex: 99,
 		width: '100%',
 		top: 0,
 		backgroundColor: theme.palette.mode === 'dark' ? 'teal' : '#FFF',
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 		alignItems: 'center',
 		padding: '0 1.4rem',
 		height: '4rem',
-		boxShadow: '0 2px 2px rgba(0 , 0, 0, 0.1)',
+		boxShadow: '0 2px 2px rgba(0 , 0, 0, 0.3)',
 	},
 	logoContainer: {
 		display: 'inline-flex',

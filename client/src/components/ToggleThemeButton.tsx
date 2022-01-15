@@ -62,7 +62,7 @@ const ToggleThemeButton = () => {
 			style={{ ...svgContainerProps, cursor: 'pointer' }}
 			onClick={() => toggle()}
 			onKeyUp={() => toggle()}
-			tabIndex={1}
+			tabIndex={0}
 			aria-label='Toggle theme'
 			role='button'
 		>

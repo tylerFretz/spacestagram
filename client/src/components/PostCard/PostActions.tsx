@@ -20,18 +20,19 @@ const PostActions = ({ date, toggleFullscreen, mediaType }: Props) => {
 
 	return (
 		<div style={{ display: 'flex', alignItems: 'center' }}>
-			<div style={{ display: 'flex', margin: '0 .5rem' }}>
-			<Checkbox
-				icon={<FavoriteBorder />}
-				checkedIcon={<Favorite color='error' />}
-				onChange={() => mutate()}
-				inputProps={{ 'aria-label': 'Like checkbox' }}
-				checked={voteCount.data.userLiked}
-			/>
-				<p aria-label='Vote count'>{count}</p>
+			<div style={{ display: 'flex', margin: '0 1rem' }}>
+				<Checkbox
+					icon={<FavoriteBorder />}
+					checkedIcon={<Favorite color='error' />}
+					onChange={() => mutate()}
+					inputProps={{ 'aria-label': 'Like checkbox' }}
+					checked={voteCount.data.userLiked}
+					style={{ padding: '0 5%'}}
+				/>
+				<p aria-label='Vote count' style={{ margin: '0 5%' }}>{count}</p>
 			</div>
 			{mediaType === 'image' && (
-				<IconButton onClick={toggleFullscreen} aria-label='Toggle Fullscreen' >
+				<IconButton onClick={toggleFullscreen} aria-label='Toggle Fullscreen' style={{ padding: '0 5%' }}>
 					<Fullscreen />
 				</IconButton>
 			)}
