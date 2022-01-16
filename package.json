@@ -8,10 +8,12 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"dev": "cross-env NODE_ENV=test ts-node-dev index.ts",
-		"start": "NODE_ENV=production node index.ts",
+		"start": "ts-node index.ts",
 		"start:prod": "node dist/index.js",
 		"lint": "eslint --ext .ts --color",
-		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
+		"build": "cd ./client && npm run build && cp -r build ../dist/client && tsc",
+		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
+		"postinstall": "npm run build"
 	},
 	"repository": {
 		"type": "git",
