@@ -12,8 +12,7 @@
 		"start:prod": "node dist/index.js",
 		"lint": "eslint --ext .ts --color",
 		"build": "tsc && cd ./client && npm run build && cp -r build ../dist/client",
-		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit",
-		"postinstall": "npm run build"
+		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
 	},
 	"repository": {
 		"type": "git",
