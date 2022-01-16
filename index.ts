@@ -28,15 +28,14 @@ else {
 		.then(() => console.log('Connected to database'))
 		.catch(err => console.error(err));
 }
-console.log(path.join(__dirname, './client/build'));
 
-app.use(express.static(path.join(__dirname, './client/build')));
+app.use(express.static('./client/build'));
 
 app.use('/api/posts', postRouter);
 
-app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname, './client/build'));
-});
+// app.get('/*', (req, res) => {
+// 	res.sendFile(path.join(__dirname, './client/build'));
+// });
 
 const PORT = process.env.PORT || 3001;
 
