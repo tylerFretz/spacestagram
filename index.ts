@@ -1,11 +1,11 @@
 require('dotenv').config();
-import path from 'path';
-import express from 'express';
-import mongoose from 'mongoose';
+import path = require('path');
+import express = require('express');
+import mongoose = require('mongoose');
 require('express-async-errors');
-import cors from 'cors';
+import cors = require('cors');
+import compression = require('compression');
 const helmet = require('helmet');
-import compression from 'compression';
 const postRouter = require('./controllers/postController');
 
 const app = express();

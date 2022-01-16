@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import { ThemeContextProvider } from './context/ThemeContext';
 import { FingerPrintContextProvider } from './context/FingerPrintContext';
 
@@ -21,7 +20,6 @@ ReactDOM.render(
 		<FingerPrintContextProvider>
 			<ThemeContextProvider>
 				<App />
-				<ReactQueryDevtools initialIsOpen={false} />
 			</ThemeContextProvider>
 		</FingerPrintContextProvider>
 	  </QueryClientProvider>
