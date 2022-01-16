@@ -24,7 +24,7 @@ postRouter.get('/nasa/:date', async (req, res) => {
 		return res.sendStatus(400);
 	}
 
-	const { data } = await axios.get(`${NASA_URL}date=${date}`);
+	const { data } = await axios.get(`${NASA_URL}date=${date}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
 
 	if (data) {
 		return res.json(data);
@@ -47,7 +47,7 @@ postRouter.get('/nasa/list/:startDate/:endDate', async (req, res) => {
 		return res.sendStatus(400);
 	}
 
-	const { data } = await axios.get(`${NASA_URL}start_date=${startDate}&end_date=${endDate}`);
+	const { data } = await axios.get(`${NASA_URL}start_date=${startDate}&end_date=${endDate}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
 	if (data) {
 		// sort returned array by date property descending
 		data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
