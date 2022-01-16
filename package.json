@@ -8,11 +8,10 @@
 	"main": "index.ts",
 	"scripts": {
 		"dev": "cross-env NODE_ENV=test ts-node-dev index.ts",
-		"start": "node index.ts",
-		"postinstall": "tsc",
-		"start:prod": "cross-env NODE_ENV=production node index.ts",
+		"start": "ts-node index.ts",
+		"start:prod": "tsc && node dist/index.js",
 		"lint": "eslint --ext .ts --color",
-		"build": "cd client && npm install && npm run build --prod",
+		"build:client": "cd client && npm install && npm run build --prod",
 		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
 	},
 	"repository": {

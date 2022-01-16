@@ -1,5 +1,6 @@
-import supertest from 'supertest';
-import app from '../index';
+export {};
+const supertest = require('supertest');
+const app = require('../index.ts');
 const Post = require('../models/Post');
 
 const api = supertest(app);
