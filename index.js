@@ -11,7 +11,8 @@ const postRouter = require('./controllers/postController');
 const app = express();
 
 app.use(helmet({
-	contentSecurityPolicy: false
+	crossOriginRescourcePolicy: false,
+	contentSecurityPolicy: false,
 }));
 app.use(helmet.hidePoweredBy());
 app.use(cors());
