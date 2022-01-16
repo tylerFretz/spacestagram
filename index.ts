@@ -4,15 +4,10 @@ const mongoose = require('mongoose');
 require('express-async-errors');
 const cors = require('cors');
 const compression = require('compression');
-const helmet = require('helmet');
 const postRouter = require('./controllers/postController');
 
 const app = express();
 
-app.use(helmet({
-	contentSecurityPolicy: false
-}));
-app.use(helmet.hidePoweredBy());
 app.use(cors());
 app.use(express.json());
 
