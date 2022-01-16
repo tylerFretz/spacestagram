@@ -1,5 +1,4 @@
 require('dotenv').config();
-const path = require('path');
 const express = require('express');
 const mongoose = require('mongoose');
 require('express-async-errors');
@@ -33,9 +32,9 @@ app.use(express.static('./client/build'));
 
 app.use('/api/posts', postRouter);
 
-// app.get('/*', (req, res) => {
-// 	res.sendFile(path.join(__dirname, './client/build'));
-// });
+app.get('/*', (req, res) => {
+	res.sendFile('./client/build');
+});
 
 const PORT = process.env.PORT || 3001;
 

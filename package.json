@@ -10,7 +10,6 @@
 		"dev": "cross-env NODE_ENV=test ts-node-dev index.ts",
 		"start": "node dist/index.js",
 		"lint": "eslint --ext .ts --color",
-		"build": "tsc",
 		"test": "cross-env NODE_ENV=test jest --verbose --runInBand --forceExit"
 	},
 	"repository": {
