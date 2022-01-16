@@ -1,6 +1,5 @@
-export {};
 const supertest = require('supertest');
-const app = require('../index.ts');
+const app = require('../index.js');
 const Post = require('../models/Post');
 
 const api = supertest(app);

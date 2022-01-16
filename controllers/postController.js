@@ -1,17 +1,12 @@
 const express = require('express');
-import axios from 'axios';
-import { Request, Response } from 'express';
+const axios = require('axios');
 const Post = require('../models/Post');
 const postRouter = express.Router();
 
-interface ParamReq extends Request {
-	params: Record<string, string>,
-	authorization?: string
-}
 
 const NASA_URL = `https://api.nasa.gov/planetary/apod?api_key=${process.env.NASA_API_KEY}&`;
 
-const isDate = (date: string) => {
+const isDate = (date) => {
 	const match = date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/g);
 	return match;
 };
@@ -21,7 +16,7 @@ const isDate = (date: string) => {
  * @param date - Required. String in the format 'YYYY-MM-DD'.
  * @returns - post object
  */
-postRouter.get('/nasa/:date', async (req: ParamReq, res: Response) => {
+postRouter.get('/nasa/:date', async (req, res) => {
 	const { date } = req.params;
 
 	// check if date is correct format
@@ -44,9 +39,9 @@ postRouter.get('/nasa/:date', async (req: ParamReq, res: Response) => {
  * @param endDate - Required. String in the format 'YYYY-MM-DD'.
  * @returns - Array of image post objects
  */
-postRouter.get('/nasa/list/:startDate/:endDate', async (req: ParamReq, res: Response) => {
+postRouter.get('/nasa/list/:startDate/:endDate', async (req, res) => {
 	const { startDate, endDate } = req.params;
-	
+
 	// check if date is correct format
 	if (!isDate(startDate) || !isDate(endDate)) {
 		return res.sendStatus(400);
@@ -69,12 +64,12 @@ postRouter.get('/nasa/list/:startDate/:endDate', async (req: ParamReq, res: Resp
  * @param authorization - Required in header. String fingerprint hash that identifies a user.
  * @returns - amount of votes the post has as a number.
  */
-postRouter.post('/vote/:date', async (req: ParamReq, res: Response) => {
+postRouter.post('/vote/:date', async (req, res) => {
 	const { date } = req.params;
 
 	// check if date is correct format
 	if (!isDate(date)) {
-		return res.sendStatus(400);	
+		return res.sendStatus(400);
 	}
 
 	const { authorization } = req.headers;
@@ -114,7 +109,7 @@ postRouter.post('/vote/:date', async (req: ParamReq, res: Response) => {
  * @param date - Required string in the format 'YYYY-MM-DD'. Each post should have a unique date.
  * @returns - amount of votes the post has as a number.
  */
-postRouter.get('/votes/:date', async (req: ParamReq, res: Response) => {
+postRouter.get('/votes/:date', async (req, res) => {
 	const { date } = req.params;
 
 	// check if date is correct format
@@ -126,7 +121,7 @@ postRouter.get('/votes/:date', async (req: ParamReq, res: Response) => {
 
 	if (post) {
 		const { authorization } = req.headers;
-		const votes: string[] = post.votes;
+		const votes = post.votes;
 		if (authorization && votes.some((id) => id === authorization)) {
 			return res.json({ votes: post.votes.length, userLiked: true });
 		} else {
