@@ -29,12 +29,12 @@ else {
 		.catch(err => console.error(err));
 }
 
-app.use(express.static('./client/build'));
+app.use(express.static('build'));
 
 app.use('/api/posts', postRouter);
 
-app.get('/*', (req, res) => {
-	res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
+app.get('*', (req, res) => {
+	res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 const PORT = process.env.PORT || 3001;
