@@ -24,7 +24,10 @@ postRouter.get('/nasa/:date', async (req, res) => {
 		return res.sendStatus(400);
 	}
 
-	const { data } = await axios.get(`${NASA_URL}date=${date}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
+	const { data } = await axios.get(`${NASA_URL}date=${date}`, { headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Cross-Origin-Embedder-policy': 'unsafe-none'
+	} });
 
 	if (data) {
 		return res.json(data);
@@ -41,13 +44,15 @@ postRouter.get('/nasa/:date', async (req, res) => {
  */
 postRouter.get('/nasa/list/:startDate/:endDate', async (req, res) => {
 	const { startDate, endDate } = req.params;
-
 	// check if date is correct format
 	if (!isDate(startDate) || !isDate(endDate)) {
 		return res.sendStatus(400);
 	}
 
-	const { data } = await axios.get(`${NASA_URL}start_date=${startDate}&end_date=${endDate}`, { headers: { 'Access-Control-Allow-Origin': '*' } });
+	const { data } = await axios.get(`${NASA_URL}start_date=${startDate}&end_date=${endDate}`, { headers: {
+		'Access-Control-Allow-Origin': '*',
+		'Cross-Origin-Embedder-policy': 'unsafe-none'
+	} });
 	if (data) {
 		// sort returned array by date property descending
 		data.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
@@ -119,6 +124,8 @@ postRouter.get('/votes/:date', async (req, res) => {
 
 	const post = await Post.findOne({ date: req.params.date });
 
+	res.setHeader('cross-origin-resource-policy', 'cross-origin');
+	res.setHeader('x-frame-options', '');
 	if (post) {
 		const { authorization } = req.headers;
 		const votes = post.votes;

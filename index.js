@@ -12,6 +12,8 @@ const app = express();
 
 app.use(helmet({
 	contentSecurityPolicy: false,
+	crossOriginResourcePolicy: 'cross-origin',
+	crossOriginEmbedderPolicy: false
 }));
 app.use(helmet.hidePoweredBy());
 app.use(cors());
@@ -42,5 +44,8 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${process.env.PORT}`);
 });
+
+
+
 
 module.exports = { app };
