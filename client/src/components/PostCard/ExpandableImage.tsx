@@ -36,7 +36,7 @@ const useStyles = makeStyles({
 		left: 0,
 		right: 0,
 		bottom: 0,
-		backgroundColor: 'rgba(0, 0, 5, 0.9)',
+		backgroundColor: 'rgba(0, 0, 5, 0.95)',
 		zIndex: 99,
 		cursor: 'pointer',
 		paddingTop: '1%',
@@ -79,7 +79,7 @@ const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, 
 				/>
 				{isExpanded && (
 					<div className={classes.overlay}>
-							<IconButton onClick={toggleFullscreen} component='span' style={{ alignSelf: 'flex-end', opacity: .8 }}>
+							<IconButton onClick={toggleFullscreen} component='span' role='button' style={{ alignSelf: 'flex-end', opacity: .8, color: '#FFF' }}>
 								<CloseIcon />
 							</IconButton>
 						<div className={classes.imageContainer}>
