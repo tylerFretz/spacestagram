@@ -8,7 +8,8 @@ import Header from './components/Header';
 const useStyles = makeStyles((theme: Theme) => ({
 	root: {
 		backgroundColor: theme.palette.mode === 'dark' ? '#222222' : '#DDE4E7',
-		transition: 'background 0.5s ease'
+		transition: 'background 0.5s ease',
+		minHeight: '100vh'
 	}
 }))
 

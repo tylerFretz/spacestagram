@@ -1,5 +1,6 @@
 import React from 'react';
-import { CardMedia, ClickAwayListener, Typography } from '@mui/material';
+import { CardMedia, Typography, IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
@@ -8,7 +9,8 @@ const useStyles = makeStyles({
 		paddingBottom: '56.25%', // 16:9 ratio
 		height: 0,
 		overflow: 'hidden',
-		textAlign: 'center'
+		textAlign: 'center',
+		marginBottom: '1rem'
 	},
 	image: {
 		position: 'absolute',
@@ -37,13 +39,14 @@ const useStyles = makeStyles({
 		backgroundColor: 'rgba(0, 0, 5, 0.9)',
 		zIndex: 99,
 		cursor: 'pointer',
-		paddingTop: '1%'
+		paddingTop: '1%',
+		overflow: 'scroll'
 	},
 	overlayButton: {
 		position: 'absolute',
 		right: 0,
 		margin: '1rem 1rem'
-	}
+	},
 });
 
 interface Props {
@@ -53,9 +56,11 @@ interface Props {
 	toggleFullscreen: (event: React.MouseEvent<HTMLElement>) => void
 	isExpanded: boolean
 	description: string
+	copyright?: string
+	date: string
 }
 
-const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, description }: Props) => {
+const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, description, copyright, date }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -74,15 +79,22 @@ const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, 
 				/>
 				{isExpanded && (
 					<div className={classes.overlay}>
-						<ClickAwayListener onClickAway={toggleFullscreen as unknown as (event: MouseEvent | TouchEvent) => void}>
+							<IconButton onClick={toggleFullscreen} component='span' style={{ alignSelf: 'flex-end', opacity: .8 }}>
+								<CloseIcon />
+							</IconButton>
 						<div className={classes.imageContainer}>
 							<img src={url} alt={title} className={classes.imageModal}></img>
 						</div>
-						</ClickAwayListener>
 						<div style={{ padding: '1% 2%' }}>
-							<Typography variant='subtitle1' style={{ textIndent: '30px', textAlign: 'justify', color: '#FFF' }}>
+							<Typography variant='subtitle1' style={{ textIndent: '30px', textAlign: 'justify', color: '#FFF', fontSize: '.85rem' }}>
 								{description}
 							</Typography>
+							<p style={{ color: '#FFF', fontSize: '.75rem', paddingTop: '1.5 rem' }}>
+								Photo taken {date}
+								{copyright && (
+									<span> by {copyright}</span>
+								)}
+							</p>
 						</div>
 					</div>
 				)}

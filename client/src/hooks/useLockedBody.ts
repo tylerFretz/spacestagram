@@ -19,7 +19,7 @@ function useLockedBody(initialLocked = false): ReturnType {
     document.body.style.overflow = 'hidden'
 
     // Get the scrollBar width
-    const root = document.getElementById('___gatsby') // or root
+    const root = document.getElementById('root') // or root
     const scrollBarWidth = root ? root.offsetWidth - root.scrollWidth : 0
 
     // Avoid width reflow

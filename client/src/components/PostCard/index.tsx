@@ -49,6 +49,8 @@ const PostCard = ({ date }: Props) => {
 				toggleFullscreen={toggleFullscreen}
 				isExpanded={isExpanded}
 				description={post.explanation}
+				copyright={post?.copyright}
+				date={post.date}
 			/>
 			<CardContent>
 				<div className={classes.contentTopContainer}>
