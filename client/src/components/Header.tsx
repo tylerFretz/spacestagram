@@ -1,6 +1,6 @@
 import React from 'react';
-import { Theme } from '@mui/material';
-import { makeStyles } from '@mui/styles';
+import { Theme, useMediaQuery } from '@mui/material';
+import { makeStyles, useTheme } from '@mui/styles';
 import ToggleThemeButton from './ToggleThemeButton';
 
 
@@ -35,6 +35,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Header = () => {
 	const classes = useStyles();
+	const theme: Theme = useTheme();
+	const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
 	return (
 		<div className={classes.header}>
@@ -42,7 +44,10 @@ const Header = () => {
 			<div className={classes.logoContainer}>
 				<img className={classes.logo} src='/images/logo.png' alt='spacestagram logo' />
 			</div>
-			<h1 style={{ margin: 0 }}>Spacestagram</h1>
+			<div style={{ paddingLeft: '.5rem', paddingRight: '1.5rem' }}>
+				<h1 style={{ margin: 0, fontSize: isMobile ? '1rem' : '2rem', lineHeight: 1.3 }}>Spacestagram</h1>
+				<p style={{ margin: 0, fontSize: isMobile ? '.6rem' : '.85rem' }}>The most recent images from NASA's Astronomy Picture of the Day</p>
+			</div>
 			</div>
 			<ToggleThemeButton />
 		</div>
