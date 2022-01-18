@@ -9,8 +9,7 @@ const useStyles = makeStyles({
 		paddingBottom: '56.25%', // 16:9 ratio
 		height: 0,
 		overflow: 'hidden',
-		textAlign: 'center',
-		marginBottom: '1rem'
+		textAlign: 'center'
 	},
 	image: {
 		position: 'absolute',
@@ -42,25 +41,20 @@ const useStyles = makeStyles({
 		paddingTop: '1%',
 		overflow: 'scroll'
 	},
-	overlayButton: {
-		position: 'absolute',
-		right: 0,
-		margin: '1rem 1rem'
-	},
 });
 
 interface Props {
-	url?: string
+	url: string
 	title: string
 	mediaType: string
-	toggleFullscreen: (event: React.MouseEvent<HTMLElement>) => void
-	isExpanded: boolean
 	description: string
 	copyright?: string
 	date: string
+	toggleFullscreen: (event: React.MouseEvent<HTMLElement>) => void
+	isExpanded: boolean
 }
 
-const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, description, copyright, date }: Props) => {
+const ExpandableImage = ({ url, title, mediaType, description, copyright, date, toggleFullscreen, isExpanded }: Props) => {
 	const classes = useStyles();
 
 	return (
@@ -82,19 +76,19 @@ const ExpandableImage = ({ url, title, mediaType, toggleFullscreen, isExpanded, 
 							<IconButton onClick={toggleFullscreen} component='span' role='button' style={{ alignSelf: 'flex-end', opacity: .8, color: '#FFF' }}>
 								<CloseIcon />
 							</IconButton>
-						<div className={classes.imageContainer}>
+						<div>
 							<img src={url} alt={title} className={classes.imageModal}></img>
 						</div>
 						<div style={{ padding: '1% 2%' }}>
 							<Typography variant='subtitle1' style={{ textIndent: '30px', textAlign: 'justify', color: '#FFF', fontSize: '.85rem' }}>
 								{description}
 							</Typography>
-							<p style={{ color: '#FFF', fontSize: '.75rem', paddingTop: '1.5 rem' }}>
+							<p style={{ color: '#FFF', fontSize: '.75rem', paddingTop: '1.5 rem', marginBottom: 0 }}>
 								Photo taken {date}
-								{copyright && (
-									<span> by {copyright}</span>
-								)}
 							</p>
+							{copyright && (
+								<p style={{ color: '#FFF', fontSize: '.75rem', marginTop: 0 }}> by {copyright}</p>
+							)}
 						</div>
 					</div>
 				)}

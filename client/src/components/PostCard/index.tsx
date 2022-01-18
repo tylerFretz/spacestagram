@@ -46,11 +46,11 @@ const PostCard = ({ date }: Props) => {
 				url={post.url}
 				title={post.title}
 				mediaType={post.media_type}
-				toggleFullscreen={toggleFullscreen}
-				isExpanded={isExpanded}
 				description={post.explanation}
 				copyright={post?.copyright}
 				date={post.date}
+				toggleFullscreen={toggleFullscreen}
+				isExpanded={isExpanded}
 			/>
 			<CardContent>
 				<div className={classes.contentTopContainer}>

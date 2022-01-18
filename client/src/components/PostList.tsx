@@ -47,7 +47,7 @@ const PostList = () => {
 	return api.data ? (
 		<section className={classes.listContainer}>
 			<Stack direction='column' spacing={2} alignItems='center'>
-				<Suspense fallback={<CircularProgress size={200} />}>
+				<Suspense fallback={<CircularProgress size={200} style={{ padding: '3rem' }} />}>
 					{api.data.map((post) => (
 						<PostCard key={post.date} date={post.date} />
 					))}
