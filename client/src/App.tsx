@@ -19,7 +19,7 @@ const App = () => {
 	return (
 		<div className={classes.root}>
 			<Header />
-			<PostList />
+			<PostList length={5} />
 		</div>
 	)
 }

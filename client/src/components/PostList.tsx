@@ -25,8 +25,12 @@ const useStyles = makeStyles((theme: Theme) => ({
 	}
 }));
 
-const PostList = () => {
-	const [startDate, setStartDate] = useState(format(subDays(Date.now(), 4), 'yyyy-MM-dd'));
+interface Props {
+	length: number
+}
+
+const PostList = ({ length }: Props) => {
+	const [startDate, setStartDate] = useState(format(subDays(Date.now(), length - 1), 'yyyy-MM-dd'));
 	const api = usePostsByDateRange(startDate, format(Date.now(), 'yyyy-MM-dd'));
 	const classes = useStyles();
 
@@ -39,7 +43,7 @@ const PostList = () => {
 
 	const loadMore = (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault();
-		setStartDate(format(subDays(Date.parse(startDate), 4), 'yyyy-MM-dd'));
+		setStartDate(format(subDays(Date.parse(startDate), length - 1), 'yyyy-MM-dd'));
 	}
 
 	
